@@ -1,0 +1,23 @@
+{
+  "name": "zhu-chat",
+  "version": "1.0.0",
+  "description": "A chat app for zhuzhu",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js --exec babel-node"
+  },
+  "keywords": [
+    "chat",
+    "socket.io"
+  ],
+  "author": "bestie",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.7.1"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0"
+  }
+}
