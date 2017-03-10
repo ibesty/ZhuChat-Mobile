@@ -1,6 +1,9 @@
-# zhu-chat-mobile
+# zhu-chat
 
+模仿微信写的聊天应用，基于Vue和socket.io
 > A chat program for zhuzhu
+
+![screenshot](https://github.com/ibesty/zhu-chat-mobile/raw/master/screenshot/screenshot.png)
 
 ## Build Setup
 
@@ -11,8 +14,8 @@ npm install
 # serve with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification
-npm run build
+#run server
+cd server
+npm start
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
