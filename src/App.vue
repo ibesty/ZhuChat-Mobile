@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <modal v-if="modal_show" @close="close()">
+    <modal v-if="modal_show">
       <h3 class="modal-title" slot="header">请输入一个名字</h3>
-      <input class="input-nickname" slot="body" type="text" name="username" value="" maxlength="10" v-model="nickname">
+      <input class="input-nickname" slot="body" type="text" name="username" value="" maxlength="10" autofocus v-model="nickname">
       <div class="confirm-btn" slot="footer" @click="close(),login()">确定</div>
     </modal>
     <top-bar></top-bar>
@@ -13,6 +13,7 @@
 <script>
   import TopBar from './components/TopBar.vue'
   import Modal from './components/Modal.vue'
+  import blockies from './assets/js/blockies.min.js'
 
   const avatar1 = require('./assets/img/avatar.jpg')
   const avatar2 = require('./assets/img/contact-avatar.jpg')
@@ -28,7 +29,7 @@
 
       userInfo.nickname = localStorage.getItem('nickname') || ''
       userInfo.userID = localStorage.getItem('userID') || this.rand()
-      userInfo.userAvatar = avatar1
+      userInfo.userAvatar = localStorage.getItem('userAvatar') || this.createAvatar()
       userInfo.currentChat = false
 
       this.setUserInfo(userInfo)
@@ -70,7 +71,7 @@
         this.$store.dispatch('setUserInfo',userInfo)
       },
       close: function () {
-        this.userInfo.nickname.trim() === '' ? alert('请输入一个名字') : this.modal_show = false;
+        this.userInfo.nickname.trim() === '' ? alert('请输入一个名字') : this.modal_show = false
       },
       rand: function rand() {
         return Math.floor((Math.random() * (10 - 1) + 1) * 10000000)
@@ -78,7 +79,17 @@
       login: function () {
         localStorage.setItem('userID', this.userInfo.userID)
         localStorage.setItem('nickname', this.userInfo.nickname)
+        localStorage.setItem('userAvatar',this.userInfo.userAvatar)
         this.$socket.emit('login', this.userInfo)
+      },
+      createAvatar: function() {
+        let avatar = window.blockies.create({
+          size: 10,
+          scale: 4
+          })
+        let src = avatar.toDataURL("image/png")
+        //console.log(src)
+        return src
       }
     },
     sockets: {

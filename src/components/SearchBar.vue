@@ -1,6 +1,6 @@
 <template>
 	<div class="search-bar">
-		<input id="search-text" class="search-input" type="text" placeholder="搜索">
+		<input id="search-text" class="search-input" type="search" placeholder="搜索">
 	</div>
 </template>
 

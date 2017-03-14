@@ -66,7 +66,7 @@
 	/*自定义滚动条样式*/
 	
 	::-webkit-scrollbar-track-piece {
-		background-color: #fff;
+		background-color: #EBEBEB;
 	}
 	
 	 ::-webkit-scrollbar {

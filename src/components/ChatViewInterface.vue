@@ -2,8 +2,8 @@
 	<div class="chat-view" @keyup.enter="sendMessage">
 		<div id="message-area" class="message-area">
 			<div v-for="message in messageList[parseInt(this.$route.params.userID)]" class="message-item">
-				<div :class="{'system_msg' : message.msgType == 0,'self_msg': message.msgType == 1,'other_msg': message.msgType == 2}">
-					<img v-if="message.msgType !== 0" :src="message.msgType === 1 ? headerImgSrc :currentContact.userAvatar" class="img">
+				<div class="clearfix" :class="{'system_msg' : message.msgType == 0,'self_msg': message.msgType == 1,'other_msg': message.msgType == 2}">
+					<img v-if="message.msgType !== 0" :src="message.msgType === 1 ? userInfo.userAvatar :currentContact.userAvatar" class="img">
 					<div class="msg_text">
 						<span class="text_content">
                                     {{message.msgText}}
@@ -16,7 +16,7 @@
 			<img src="../assets/img/voice.png" alt="voice" class="voice-icon">
 			<img src="../assets/img/emoji.png" alt="emoji" class="emoji-icon">
 			<div class="input-area">
-				<input v-model="messageText" type="text" class="message-input">
+				<input v-model="messageText" type="search" class="message-input">
 			</div>
 			<div @click="sendMessage" class="send-btn">发送</div>
 		</div>
@@ -38,11 +38,13 @@
 		},
 		data() {
 			return {
-				messageText: '',
-				headerImgSrc: require('../assets/img/avatar.jpg')
+				messageText: ''
 			}
 		},
 		computed: {
+			userInfo: function () {
+				return this.$store.state.userInfo
+			},
 			userList: function () {
 				return this.$store.state.userList
 			},
@@ -54,8 +56,8 @@
 			}
 		},
 		watch: {
-			messageList: function(){
-				this.$nextTick(function(){
+			messageList: function () {
+				this.$nextTick(function () {
 					document.querySelector('#message-area').scrollTop = document.querySelector('#message-area').scrollHeight
 				})
 			}
@@ -202,8 +204,17 @@
 					height: 100%;
 					border: 1px solid #DDDDDD;
 					border-radius: 4px;
+					font-size: 1rem;
 				}
 			}
 		}
+	}
+	
+	.clearfix:after {
+		content: ".";
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
 	}
 </style>
